@@ -1,24 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import {Canvas} from '@react-three/fiber'
+import { useGLTF, Text, OrbitControls } from '@react-three/drei';
+import { Suspense } from 'react';
+
+function Figura(props){
+  const {scene} = useGLTF("/hiih.glb");
+  return <primitive object={scene}{...props}/>
+}
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    
+    <Canvas dpr={[1,2]} style={{"position": "absolute"}} >
+      <color attach="background" args={['#fff']} />
+
+        <Suspense fallback={null}>
+          <ambientLight/>
+
+          <Figura scale={1}/>
+          <OrbitControls/>
+
+        </Suspense>
+    </Canvas>
   );
 }
 
